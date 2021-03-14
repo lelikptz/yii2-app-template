@@ -1,0 +1,12 @@
+parameters:
+    level: 8
+    paths:
+        - components
+        - controllers
+        - services
+    bootstrapFiles:
+        - vendor/yiisoft/yii2/Yii.php
+    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#getEntityService#'
+        - '#getRepository#'
