@@ -1,11 +1,11 @@
 <?php
 
-namespace app\services;
+namespace app\infrastructure\services\http;
 
 /**
- * Class ResponseModel
+ * Class Response
  */
-class ResponseModel
+class AppResponse
 {
     private array $data;
 

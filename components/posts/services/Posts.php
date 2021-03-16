@@ -3,22 +3,20 @@
 namespace app\components\posts\services;
 
 use app\components\posts\dto\Post;
-use app\components\posts\PostsInterface;
+use app\components\posts\PostsContract;
 use app\components\posts\repositories\PostRepository;
-use Yii;
-use yii\base\InvalidConfigException;
-use yii\httpclient\Exception;
-use yii\web\NotFoundHttpException;
+use app\infrastructure\services\http\HttpClient;
+use Throwable;
 
 /**
  * Class Posts
  */
-class Posts implements PostsInterface
+class Posts implements PostsContract
 {
     /**
      * @param int $id
      * @return Post
-     * @throws InvalidConfigException|Exception|NotFoundHttpException
+     * @throws Throwable
      */
     public function get(int $id): Post
     {
@@ -28,7 +26,7 @@ class Posts implements PostsInterface
     /**
      * @param array $params
      * @return Post[]
-     * @throws Exception|InvalidConfigException
+     * @throws Throwable
      */
     public function list(array $params): array
     {
@@ -37,10 +35,9 @@ class Posts implements PostsInterface
 
     /**
      * @return PostRepository
-     * @throws InvalidConfigException
      */
     private function getRepository(): PostRepository
     {
-        return Yii::createObject(PostRepository::class);
+        return new PostRepository(new HttpClient());
     }
 }

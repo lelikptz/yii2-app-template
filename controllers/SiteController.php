@@ -2,8 +2,7 @@
 
 namespace app\controllers;
 
-use app\services\PostService;
-use yii\base\InvalidConfigException;
+use app\infrastructure\services\PostService;
 use yii\rest\Controller;
 
 /**
@@ -18,7 +17,6 @@ class SiteController extends Controller
 
     /**
      * @return array
-     * @throws InvalidConfigException
      */
     public function actionIndex(): array
     {
@@ -30,7 +28,6 @@ class SiteController extends Controller
     /**
      * @param int $id
      * @return array
-     * @throws InvalidConfigException
      */
     public function actionPost(int $id): array
     {

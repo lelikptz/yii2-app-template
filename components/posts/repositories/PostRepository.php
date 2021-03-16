@@ -3,21 +3,24 @@
 namespace app\components\posts\repositories;
 
 use app\components\posts\dto\Post;
-use yii\httpclient\Client;
-use yii\httpclient\Exception;
-use yii\web\NotFoundHttpException;
+use app\infrastructure\repository\BaseRepository;
+use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpFoundation\Response;
+use InvalidArgumentException;
+use Throwable;
 
 /**
  * Class PostRepository
  */
-class PostRepository
+class PostRepository extends BaseRepository
 {
-    /**
-     * @var Client
-     */
-    private Client $client;
+    private ClientInterface $client;
 
-    public function __construct(Client $client)
+    /**
+     * PostRepository constructor.
+     * @param ClientInterface $client
+     */
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -25,27 +28,31 @@ class PostRepository
     /**
      * @param int $id
      * @return Post
-     * @throws Exception|NotFoundHttpException
+     * @throws Throwable
      */
     public function get(int $id): Post
     {
-        $response = $this->client->get("https://jsonplaceholder.typicode.com/todos/$id")->send();
-        if ($response->getIsOk()) {
-            return new Post($response->data);
+        $request = $this->createRequest("https://jsonplaceholder.typicode.com/todos/$id");
+        $response = $this->client->sendRequest($request);
+
+        if (Response::HTTP_OK === $response->getStatusCode()) {
+            return new Post($this->getData($response));
         }
 
-        throw new NotFoundHttpException('Post not found');
+        throw new InvalidArgumentException('Post not found');
     }
 
     /**
      * @return array
-     * @throws Exception
+     * @throws Throwable
      */
     public function list(): array
     {
-        $response = $this->client->get('https://jsonplaceholder.typicode.com/todos')->send();
-        if ($response->getIsOk()) {
-            return Post::arrayOf($response->data);
+        $request = $this->createRequest('https://jsonplaceholder.typicode.com/todos');
+        $response = $this->client->sendRequest($request);
+
+        if (Response::HTTP_OK === $response->getStatusCode()) {
+            return Post::arrayOf($this->getData($response));
         }
 
         return [];

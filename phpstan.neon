@@ -3,10 +3,9 @@ parameters:
     paths:
         - components
         - controllers
-        - services
+        - infrastructure
     bootstrapFiles:
         - vendor/yiisoft/yii2/Yii.php
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '#getEntityService#'
-        - '#getRepository#'
+        - '#ApiResponseAdapter|ApiRequest#'
