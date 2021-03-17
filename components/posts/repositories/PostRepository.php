@@ -1,9 +1,9 @@
 <?php
 
-namespace app\components\posts\repositories;
+namespace components\posts\repositories;
 
-use app\components\posts\dto\Post;
-use app\infrastructure\repository\BaseRepository;
+use components\posts\dto\Post;
+use infrastructure\repository\BaseRepository;
 use Psr\Http\Client\ClientInterface;
 use Symfony\Component\HttpFoundation\Response;
 use InvalidArgumentException;

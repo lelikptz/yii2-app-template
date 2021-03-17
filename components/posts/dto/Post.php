@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\posts\dto;
+namespace components\posts\dto;
 
 use Spatie\DataTransferObject\DataTransferObject;
 

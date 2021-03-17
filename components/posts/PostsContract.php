@@ -1,8 +1,8 @@
 <?php
 
-namespace app\components\posts;
+namespace components\posts;
 
-use app\components\posts\dto\Post;
+use components\posts\dto\Post;
 
 /**
  * Interface PostsContract

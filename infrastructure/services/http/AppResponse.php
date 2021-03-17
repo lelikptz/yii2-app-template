@@ -1,6 +1,6 @@
 <?php
 
-namespace app\infrastructure\services\http;
+namespace infrastructure\services\http;
 
 /**
  * Class Response

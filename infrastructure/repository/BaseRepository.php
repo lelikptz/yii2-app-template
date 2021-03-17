@@ -1,8 +1,8 @@
 <?php
 
-namespace app\infrastructure\repository;
+namespace infrastructure\repository;
 
-use app\infrastructure\services\http\ApiRequest;
+use infrastructure\services\http\ApiRequest;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

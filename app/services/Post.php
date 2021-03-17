@@ -1,15 +1,15 @@
 <?php
 
-namespace app\infrastructure\services;
+namespace app\services;
 
-use app\components\posts\PostsContract;
-use app\components\posts\services\Posts;
-use app\infrastructure\services\http\AppResponse;
+use components\posts\PostsContract;
+use infrastructure\services\BaseService;
+use infrastructure\services\http\AppResponse;
 
 /**
- * Class PostService
+ * Class Post
  */
-class PostService extends BaseService
+class Post extends BaseService
 {
     /**
      * @param int $id
@@ -17,7 +17,7 @@ class PostService extends BaseService
      */
     public function get(int $id): AppResponse
     {
-        $post = $this->getEntityService()->get($id);
+        $post = $this->getPostService()->get($id);
 
         return new AppResponse($post->toArray());
     }
@@ -28,7 +28,7 @@ class PostService extends BaseService
      */
     public function list(array $params): AppResponse
     {
-        $posts = $this->getEntityService()->list($params);
+        $posts = $this->getPostService()->list($params);
 
         return new AppResponse($posts);
     }
@@ -36,8 +36,8 @@ class PostService extends BaseService
     /**
      * @return PostsContract
      */
-    protected function getEntityService(): PostsContract
+    protected function getPostService(): PostsContract
     {
-        return new Posts();
+        return $this->container()->get('\components\posts\services\Posts');
     }
 }

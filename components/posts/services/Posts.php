@@ -1,17 +1,17 @@
 <?php
 
-namespace app\components\posts\services;
+namespace components\posts\services;
 
-use app\components\posts\dto\Post;
-use app\components\posts\PostsContract;
-use app\components\posts\repositories\PostRepository;
-use app\infrastructure\services\http\HttpClient;
+use components\posts\dto\Post;
+use components\posts\PostsContract;
+use components\posts\repositories\PostRepository;
+use infrastructure\services\BaseService;
 use Throwable;
 
 /**
  * Class Posts
  */
-class Posts implements PostsContract
+class Posts extends BaseService implements PostsContract
 {
     /**
      * @param int $id
@@ -38,6 +38,6 @@ class Posts implements PostsContract
      */
     private function getRepository(): PostRepository
     {
-        return new PostRepository(new HttpClient());
+        return $this->container()->get(PostRepository::class);
     }
 }

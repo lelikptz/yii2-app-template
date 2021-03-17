@@ -15,7 +15,7 @@ return [
             'format' => Response::FORMAT_JSON,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => defined('YII_DEBUG') ? 3 : 0,
             'targets' => [
                 [
                     'class' => FileTarget::class,
