@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\infrastructure\services\PostService;
+use app\services\Post;
 use yii\rest\Controller;
 
 /**
@@ -20,7 +20,7 @@ class SiteController extends Controller
      */
     public function actionIndex(): array
     {
-        $service = new PostService();
+        $service = new Post();
 
         return $service->list([])->getData();
     }
@@ -31,7 +31,7 @@ class SiteController extends Controller
      */
     public function actionPost(int $id): array
     {
-        $service = new PostService();
+        $service = new Post();
 
         return $service->get($id)->getData();
     }

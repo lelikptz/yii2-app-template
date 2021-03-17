@@ -1,6 +1,6 @@
 <?php
 
-namespace app\infrastructure\services\http;
+namespace infrastructure\services\http;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
