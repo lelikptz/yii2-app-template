@@ -8,7 +8,7 @@ services:
     volumes:
       - ./:/var/www/html
     environment:
-      XDEBUG_CONFIG: "remote_host={{host}} idekey={{key}} remote_port={{port}} remote_enable={{enabled}} remote_autostart={{enabled}}"
+      XDEBUG_CONFIG: "remote_host={{host}} idekey={{key}} remote_port={{port}} remote_enable=1 remote_autostart=1"
 
   nginx:
     image: nginx:alpine
