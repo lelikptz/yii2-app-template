@@ -3,26 +3,24 @@
 namespace components\posts\repositories;
 
 use components\posts\dto\Post;
-use infrastructure\repository\BaseRepository;
-use Psr\Http\Client\ClientInterface;
-use Symfony\Component\HttpFoundation\Response;
-use InvalidArgumentException;
+use infrastructure\storages\ApiStorageInterface;
 use Throwable;
 
 /**
  * Class PostRepository
  */
-class PostRepository extends BaseRepository
+class PostRepository
 {
-    private ClientInterface $client;
+    private ApiStorageInterface $storage;
+    private string $baseUrl = 'https://jsonplaceholder.typicode.com';
 
     /**
      * PostRepository constructor.
-     * @param ClientInterface $client
+     * @param ApiStorageInterface $storage
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ApiStorageInterface $storage)
     {
-        $this->client = $client;
+        $this->storage = $storage;
     }
 
     /**
@@ -32,14 +30,9 @@ class PostRepository extends BaseRepository
      */
     public function get(int $id): Post
     {
-        $request = $this->createRequest("https://jsonplaceholder.typicode.com/todos/$id");
-        $response = $this->client->sendRequest($request);
+        $item = $this->storage->get($this->baseUrl . "/todos/$id");
 
-        if (Response::HTTP_OK === $response->getStatusCode()) {
-            return new Post($this->getData($response));
-        }
-
-        throw new InvalidArgumentException('Post not found');
+        return new Post($item);
     }
 
     /**
@@ -48,13 +41,8 @@ class PostRepository extends BaseRepository
      */
     public function list(): array
     {
-        $request = $this->createRequest('https://jsonplaceholder.typicode.com/todos');
-        $response = $this->client->sendRequest($request);
+        $items = $this->storage->all($this->baseUrl . '/todos');
 
-        if (Response::HTTP_OK === $response->getStatusCode()) {
-            return Post::arrayOf($this->getData($response));
-        }
-
-        return [];
+        return Post::arrayOf($items);
     }
 }

@@ -28,7 +28,7 @@ abstract class BaseService
             $infrastructureConfig = include dirname($infrastructureClass) . '/../config/container.php';
 
             $builder = new ContainerBuilder();
-            $builder->addDefinitions(array_merge($componentConfig, $infrastructureConfig));
+            $builder->addDefinitions($componentConfig, $infrastructureConfig);
             $this->container = $builder->build();
         }
 

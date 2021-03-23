@@ -1,8 +1,8 @@
 <?php
 
-use infrastructure\services\http\HttpClient;
-use Psr\Http\Client\ClientInterface;
+use components\posts\repositories\PostRepository;
+use infrastructure\storages\ApiStorage;
 
 return [
-    ClientInterface::class => DI\create(HttpClient::class),
+    PostRepository::class => DI\create()->constructor(DI\get(ApiStorage::class)),
 ];
